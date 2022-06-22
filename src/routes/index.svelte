@@ -1,5 +1,8 @@
-<script>
-  import successkid from "images/successkid.jpg";
+<script lang="ts">
+  import successkid from "~/images/successkid.jpg";
+
+  const a: number = 1;
+  console.log(a);
 </script>
 
 <svelte:head>
@@ -11,7 +14,6 @@
 <figure>
   <img alt="Success Kid" src={successkid} />
   <figcaption>Have fun with Sapper!</figcaption>
-  <Button />
 </figure>
 
 <p>

@@ -6,6 +6,8 @@ import url from '@rollup/plugin-url';
 import svelte from 'rollup-plugin-svelte';
 import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
+import alias from '@rollup/plugin-alias';
+import autoPreprocess from 'svelte-preprocess';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
 
@@ -23,6 +25,14 @@ export default {
 		input: config.client.input(),
 		output: config.client.output(),
 		plugins: [
+			alias({
+				entries: [
+					{
+						find: '~',
+						replacement: path.resolve(__dirname, 'src/'),
+					}
+				],
+			}),
 			replace({
 				preventAssignment: true,
 				values:{
@@ -31,6 +41,7 @@ export default {
 				},
 			}),
 			svelte({
+				preprocess: autoPreprocess(),
 				compilerOptions: {
 					dev,
 					hydratable: true
@@ -76,6 +87,14 @@ export default {
 		input: config.server.input(),
 		output: config.server.output(),
 		plugins: [
+			alias({
+				entries: [
+					{
+						find: '~',
+						replacement: path.resolve(__dirname, 'src/'),
+					}
+				],
+			}),
 			replace({
 				preventAssignment: true,
 				values:{
@@ -84,6 +103,7 @@ export default {
 				},
 			}),
 			svelte({
+				preprocess: autoPreprocess(),
 				compilerOptions: {
 					dev,
 					generate: 'ssr',
